@@ -149,7 +149,7 @@ unsafe impl<R: RawMutex + Sync, T: ?Sized + Send> Sync for Mutex<R, T> {}
 
 impl<R: RawMutex, T> Mutex<R, T> {
     /// Creates a new mutex in an unlocked state ready for use.
-    #[cfg(has_const_fn_trait_bound)]
+    #[cfg(feature = "nightly")]
     #[inline]
     pub const fn new(val: T) -> Mutex<R, T> {
         Mutex {
@@ -159,7 +159,7 @@ impl<R: RawMutex, T> Mutex<R, T> {
     }
 
     /// Creates a new mutex in an unlocked state ready for use.
-    #[cfg(not(has_const_fn_trait_bound))]
+    #[cfg(not(feature = "nightly"))]
     #[inline]
     pub fn new(val: T) -> Mutex<R, T> {
         Mutex {
